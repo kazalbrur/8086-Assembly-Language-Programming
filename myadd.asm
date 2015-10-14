@@ -1,0 +1,34 @@
+
+;8086 Program that adds two decimal numbers
+.MODEL SMALL 
+ org 100h
+.STACK
+.DATA
+VAL1 DB 55
+VAL2 DB 30
+MSG DB 'SUM OF 2 NO.',13,10,'$'
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS,AX
+    MOV AX,0
+    MOV AL,VAL1
+    ADD AL,VAL2
+    AAM
+    ADD AX,3030H
+    PUSH AX
+    LEA DX,MSG
+    MOV AH,09H
+    INT 21H
+    POP AX 
+    MOV DL,AH
+    MOV DH,AL
+    MOV AH,02H
+    INT 21H
+    MOV DL,DH
+    MOV AH,02H
+    INT 21H
+    MOV AX,4C00H
+    INT 21H
+    MAIN ENDP
+END MAIN
